@@ -2,7 +2,7 @@ package majik.rereskillable;
 
 import majik.rereskillable.common.skills.Requirement;
 import majik.rereskillable.common.skills.Skill;
-import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 import java.util.Arrays;
@@ -36,13 +36,13 @@ public class Configuration
         builder.comment("Maximum level each skill can be upgraded to.");
         MAXIMUM_LEVEL = builder.defineInRange("maximumLevel", 32, 2, 100);
         
-        builder.comment("List of item skill requirements.", "Format: mod:item_id skill:level", "Valid skills: attack, defense, mining, gathering, farming, building, agility, magic");
+        builder.comment("List of item skill requirements.", "Format: mod:item_id skill:level", "Valid skills: attack, defence, mining, gathering, farming, building, agility, magic");
         SKILL_LOCKS = builder.defineList("skillLocks", Arrays.asList("minecraft:iron_sword attack:8", "minecraft:iron_axe gathering:8", "minecraft:iron_pickaxe mining:8", "minecraft:iron_shovel mining:8",
             "minecraft:iron_hoe farming:8", "minecraft:iron_helmet defence:8", "minecraft:iron_chestplate defence:8", "minecraft:iron_leggings defence:8", "minecraft:iron_boots defence:8",
             "minecraft:diamond_sword attack:16", "minecraft:diamond_axe gathering:16", "minecraft:diamond_pickaxe mining:16", "minecraft:diamond_shovel mining:16", "minecraft:diamond_hoe farming:16",
             "minecraft:diamond_helmet defence:16", "minecraft:diamond_chestplate defence:16", "minecraft:diamond_leggings defence:16", "minecraft:diamond_boots defence:16", "minecraft:netherite_sword attack:24",
             "minecraft:netherite_axe gathering:24", "minecraft:netherite_pickaxe mining:24", "minecraft:netherite_shovel mining:24", "minecraft:netherite_hoe farming:24", "minecraft:netherite_helmet defence:24",
-            "minecraft:netherite_chestplate defence:24", "minecraft:netherite_leggings defence:24", "minecraft:netherite_boots defence:24", "minecraft:totem_of_undying magic:16", "minecraft:elytra agility:24"), obj -> true);
+            "minecraft:netherite_chestplate defence:24", "minecraft:netherite_leggings defence:24", "minecraft:netherite_boots defence:24", "minecraft:elytra defence:12 agility:24"), obj -> true);
         
         CONFIG_SPEC = builder.build();
     }
@@ -65,6 +65,7 @@ public class Configuration
                 String[] req = entry[i].split(":");
                 
                 requirements[i - 1] = new Requirement(Skill.valueOf(req[0].toUpperCase()), Integer.parseInt(req[1]));
+                System.out.println(req[0].toUpperCase() + " " + req[1]);
             }
             
             skillLocks.put(entry[0], requirements);
@@ -88,9 +89,9 @@ public class Configuration
         return maximumLevel;
     }
     
-    public static Requirement[] getRequirements(ItemStack item)
+    public static Requirement[] getRequirements(ResourceLocation key)
     {
-        return skillLocks.get(item.getItem().getRegistryName().toString());
+        return skillLocks.get(key.toString());
     }
     
     // Get Configuration

@@ -3,7 +3,6 @@ package majik.rereskillable.client;
 import majik.rereskillable.Configuration;
 import majik.rereskillable.common.capabilities.SkillModel;
 import majik.rereskillable.common.skills.Requirement;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -18,8 +17,7 @@ public class Tooltip
     @SubscribeEvent
     public void onTooltipDisplay(ItemTooltipEvent event)
     {
-        ItemStack item = event.getItemStack();
-        Requirement[] requirements = Configuration.getRequirements(item);
+        Requirement[] requirements = Configuration.getRequirements(event.getItemStack().getItem().getRegistryName());
         
         if (requirements != null)
         {

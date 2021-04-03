@@ -9,7 +9,6 @@ import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -36,6 +35,22 @@ public class Events
         {
             event.setCanceled(true);
         }
+    }
+    
+    // Player Left Click Block
+    
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public void onPlayerLeftClickBlock(PlayerInteractEvent.LeftClickBlock event)
+    {
+        //System.out.println(event.getWorld().getBlockState(event.getPos()).getBlock().getRegistryName().toString());
+    }
+    
+    // Player Right Click Block
+    
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public void onPlayerRightClickBlock(PlayerInteractEvent.RightClickBlock event)
+    {
+        //System.out.println(event.getWorld().getBlockState(event.getPos()).getBlock().getRegistryName().toString());
     }
     
     // Player Attack
@@ -78,7 +93,7 @@ public class Events
     
     // Entity Drops
     
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onEntityDrops(LivingDropsEvent event)
     {
         if (Configuration.getDisableWool() && event.getEntity() instanceof SheepEntity)

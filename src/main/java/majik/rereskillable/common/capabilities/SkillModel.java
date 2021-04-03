@@ -4,11 +4,13 @@ import majik.rereskillable.Configuration;
 import majik.rereskillable.common.network.NotifyWarning;
 import majik.rereskillable.common.skills.Requirement;
 import majik.rereskillable.common.skills.Skill;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.INBTSerializable;
 
 public class SkillModel implements INBTSerializable<CompoundNBT>
@@ -33,7 +35,21 @@ public class SkillModel implements INBTSerializable<CompoundNBT>
     
     public boolean canUseItem(PlayerEntity player, ItemStack item)
     {
-        Requirement[] requirements = Configuration.getRequirements(item);
+        return canUse(player, item.getItem().getRegistryName());
+    }
+    
+    // Can Player Use Block
+    
+    public boolean canUseBlock(PlayerEntity player, Block block)
+    {
+        return canUse(player, block.getBlock().getRegistryName());
+    }
+    
+    // Can Player Use
+    
+    private boolean canUse(PlayerEntity player, ResourceLocation resource)
+    {
+        Requirement[] requirements = Configuration.getRequirements(resource);
         
         if (requirements != null)
         {
@@ -43,14 +59,14 @@ public class SkillModel implements INBTSerializable<CompoundNBT>
                 {
                     if (player instanceof ServerPlayerEntity)
                     {
-                        NotifyWarning.send(player, item);
+                        NotifyWarning.send(player, resource);
                     }
-                    
+                
                     return false;
                 }
             }
         }
-        
+    
         return true;
     }
     
@@ -59,7 +75,7 @@ public class SkillModel implements INBTSerializable<CompoundNBT>
     public static SkillModel get(PlayerEntity player)
     {
         return player.getCapability(SkillCapability.INSTANCE).orElseThrow(() ->
-                new IllegalArgumentException("Player " + player.getName().getContents() + " does not have a Skill Model!")
+            new IllegalArgumentException("Player " + player.getName().getContents() + " does not have a Skill Model!")
         );
     }
     
@@ -68,7 +84,7 @@ public class SkillModel implements INBTSerializable<CompoundNBT>
     public static SkillModel get()
     {
         return Minecraft.getInstance().player.getCapability(SkillCapability.INSTANCE).orElseThrow(() ->
-                new IllegalArgumentException("Player does not have a Skill Model!")
+            new IllegalArgumentException("Player does not have a Skill Model!")
         );
     }
     

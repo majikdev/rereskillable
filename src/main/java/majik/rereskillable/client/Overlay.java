@@ -7,16 +7,19 @@ import majik.rereskillable.common.capabilities.SkillModel;
 import majik.rereskillable.common.skills.Requirement;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
-import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.lwjgl.opengl.GL11;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Overlay extends AbstractGui
 {
-    private static ItemStack item = null;
+    private static List<Requirement> requirements = null;
     private static int showTicks = 0;
     
     @SubscribeEvent
@@ -26,7 +29,6 @@ public class Overlay extends AbstractGui
         {
             Minecraft minecraft = Minecraft.getInstance();
             MatrixStack stack = event.getMatrixStack();
-            Requirement[] requirements = Configuration.getRequirements(item);
             
             minecraft.textureManager.bind(SkillScreen.RESOURCES);
             GL11.glEnable(GL11.GL_BLEND);
@@ -39,12 +41,12 @@ public class Overlay extends AbstractGui
             String message = new TranslationTextComponent("overlay.message").getString();
             minecraft.font.drawShadow(stack, message, cx - minecraft.font.width(message) / 2, cy, 0xFF5555);
             
-            for (int i = 0; i < requirements.length; i++)
+            for (int i = 0; i < requirements.size(); i++)
             {
-                Requirement requirement = requirements[i];
+                Requirement requirement = requirements.get(i);
                 int maxLevel = Configuration.getMaxLevel();
                 
-                int x = cx + i * 20 - requirements.length * 10 + 2;
+                int x = cx + i * 20 - requirements.size() * 10 + 2;
                 int y = cy + 15;
                 int u = Math.min(requirement.level, maxLevel - 1) / (maxLevel / 4) * 16 + 176;
                 int v = requirement.skill.index * 16 + 128;
@@ -67,9 +69,9 @@ public class Overlay extends AbstractGui
     
     // Show Warning
     
-    public static void showWarning(ItemStack item)
+    public static void showWarning(ResourceLocation resource)
     {
-        Overlay.item = item;
+        requirements = Arrays.asList(Configuration.getRequirements(resource));
         showTicks = 60;
     }
 }
