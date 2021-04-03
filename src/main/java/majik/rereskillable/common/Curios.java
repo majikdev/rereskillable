@@ -24,14 +24,11 @@ public class Curios
                 
                 if (!SkillModel.get(player).canUseItem(player, item))
                 {
-                    player.drop(item.copy(), false);
-                    item.setCount(0);
-                    
-                    /*if (!player.addItem(item))
+                    if (!player.addItem(item))
                     {
                         player.drop(item.copy(), false);
                         item.setCount(0);
-                    }*/
+                    }
                 }
             }
         }
