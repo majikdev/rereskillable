@@ -1,0 +1,36 @@
+modLoader="javafml"
+loaderVersion="[36,)"
+license="All rights reserved"
+
+[[mods]]
+modId="rereskillable"
+version="${file.jarVersion}"
+displayName="Rereskillable"
+#displayURL=""
+#logoFile="rereskillable.png"
+credits="Skillable and Reskillable"
+authors="majik"
+description='''
+Rereskillable is a simpler rewrite of Reskillable.
+'''
+
+[[dependencies.rereskillable]]
+    modId="forge"
+    mandatory=true
+    versionRange="[36,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.rereskillable]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.5,1.17)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.rereskillable]]
+    modId="curios"
+    mandatory=false
+    versionRange="[4.0.1.0,)"
+    ordering="AFTER"
+    side="BOTH"
