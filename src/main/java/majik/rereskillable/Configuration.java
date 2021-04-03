@@ -5,10 +5,11 @@ import majik.rereskillable.common.skills.Skill;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ForgeConfigSpec;
 
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Configuration
 {
@@ -17,11 +18,13 @@ public class Configuration
     private static final ForgeConfigSpec.IntValue STARTING_COST;
     private static final ForgeConfigSpec.IntValue MAXIMUM_LEVEL;
     private static final ForgeConfigSpec.ConfigValue<List<? extends String>> SKILL_LOCKS;
+    private static final ForgeConfigSpec.ConfigValue<List<? extends String>> BLACKLIST;
     
     private static boolean disableWool;
     private static int startingCost;
     private static int maximumLevel;
     private static final Map<String, Requirement[]> skillLocks = new HashMap<>();
+    private static final List<String> blacklist = new ArrayList<>();
     
     static
     {
@@ -36,13 +39,16 @@ public class Configuration
         builder.comment("Maximum level each skill can be upgraded to.");
         MAXIMUM_LEVEL = builder.defineInRange("maximumLevel", 32, 2, 100);
         
-        builder.comment("List of item skill requirements.", "Format: mod:item_id skill:level", "Valid skills: attack, defence, mining, gathering, farming, building, agility, magic");
+        builder.comment("List of item and block skill requirements.", "Format: mod:id skill:level", "Valid skills: attack, defence, mining, gathering, farming, building, agility, magic");
         SKILL_LOCKS = builder.defineList("skillLocks", Arrays.asList("minecraft:iron_sword attack:8", "minecraft:iron_axe gathering:8", "minecraft:iron_pickaxe mining:8", "minecraft:iron_shovel mining:8",
             "minecraft:iron_hoe farming:8", "minecraft:iron_helmet defence:8", "minecraft:iron_chestplate defence:8", "minecraft:iron_leggings defence:8", "minecraft:iron_boots defence:8",
             "minecraft:diamond_sword attack:16", "minecraft:diamond_axe gathering:16", "minecraft:diamond_pickaxe mining:16", "minecraft:diamond_shovel mining:16", "minecraft:diamond_hoe farming:16",
             "minecraft:diamond_helmet defence:16", "minecraft:diamond_chestplate defence:16", "minecraft:diamond_leggings defence:16", "minecraft:diamond_boots defence:16", "minecraft:netherite_sword attack:24",
             "minecraft:netherite_axe gathering:24", "minecraft:netherite_pickaxe mining:24", "minecraft:netherite_shovel mining:24", "minecraft:netherite_hoe farming:24", "minecraft:netherite_helmet defence:24",
             "minecraft:netherite_chestplate defence:24", "minecraft:netherite_leggings defence:24", "minecraft:netherite_boots defence:24", "minecraft:elytra defence:12 agility:24"), obj -> true);
+        
+        builder.comment("List of items or blocks that cannot be used.");
+        BLACKLIST = builder.defineList("blacklist", new ArrayList<>(), obj -> true);
         
         CONFIG_SPEC = builder.build();
     }
@@ -70,6 +76,8 @@ public class Configuration
             
             skillLocks.put(entry[0], requirements);
         }
+    
+        blacklist.addAll(BLACKLIST.get());
     }
     
     // Get Properties

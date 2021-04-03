@@ -4,6 +4,7 @@ import majik.rereskillable.Configuration;
 import majik.rereskillable.common.capabilities.SkillModel;
 import majik.rereskillable.common.capabilities.SkillProvider;
 import majik.rereskillable.common.network.SyncToClient;
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -22,27 +23,20 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class Events
 {
-    // Player Interact
-    
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public void onPlayerInteract(PlayerInteractEvent event)
-    {
-        if (event instanceof PlayerInteractEvent.RightClickEmpty || event instanceof PlayerInteractEvent.LeftClickEmpty) return;
-        
-        PlayerEntity player = event.getPlayer();
-        
-        if (!player.isCreative() && !SkillModel.get(player).canUseItem(player, event.getItemStack()))
-        {
-            event.setCanceled(true);
-        }
-    }
-    
     // Player Left Click Block
     
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onPlayerLeftClickBlock(PlayerInteractEvent.LeftClickBlock event)
     {
-        //System.out.println(event.getWorld().getBlockState(event.getPos()).getBlock().getRegistryName().toString());
+        PlayerEntity player = event.getPlayer();
+        ItemStack item = event.getItemStack();
+        Block block = event.getWorld().getBlockState(event.getPos()).getBlock();
+        SkillModel model = SkillModel.get(player);
+        
+        if (!player.isCreative() && (!model.canUseItem(player, item) || !model.canUseBlock(player, block)))
+        {
+            event.setCanceled(true);
+        }
     }
     
     // Player Right Click Block
@@ -50,7 +44,28 @@ public class Events
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onPlayerRightClickBlock(PlayerInteractEvent.RightClickBlock event)
     {
-        //System.out.println(event.getWorld().getBlockState(event.getPos()).getBlock().getRegistryName().toString());
+        PlayerEntity player = event.getPlayer();
+        ItemStack item = event.getItemStack();
+        Block block = event.getWorld().getBlockState(event.getPos()).getBlock();
+        SkillModel model = SkillModel.get(player);
+        
+        if (!player.isCreative() && (!model.canUseItem(player, item) || !model.canUseBlock(player, block)))
+        {
+            event.setCanceled(true);
+        }
+    }
+    
+    // Player Right Click Item
+    
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public void onPlayerRightClickItem(PlayerInteractEvent.RightClickItem event)
+    {
+        PlayerEntity player = event.getPlayer();
+    
+        if (!player.isCreative() && !SkillModel.get(player).canUseItem(player, event.getItemStack()))
+        {
+            event.setCanceled(true);
+        }
     }
     
     // Player Attack
