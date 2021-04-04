@@ -76,7 +76,7 @@ public class Configuration
             
             skillLocks.put(entry[0], requirements);
         }
-    
+        
         blacklist.addAll(BLACKLIST.get());
     }
     
