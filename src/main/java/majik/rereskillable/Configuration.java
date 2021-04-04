@@ -8,7 +8,6 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Configuration
@@ -18,13 +17,11 @@ public class Configuration
     private static final ForgeConfigSpec.IntValue STARTING_COST;
     private static final ForgeConfigSpec.IntValue MAXIMUM_LEVEL;
     private static final ForgeConfigSpec.ConfigValue<List<? extends String>> SKILL_LOCKS;
-    private static final ForgeConfigSpec.ConfigValue<List<? extends String>> BLACKLIST;
     
     private static boolean disableWool;
     private static int startingCost;
     private static int maximumLevel;
     private static final Map<String, Requirement[]> skillLocks = new HashMap<>();
-    private static final List<String> blacklist = new ArrayList<>();
     
     static
     {
@@ -46,9 +43,6 @@ public class Configuration
             "minecraft:diamond_helmet defence:16", "minecraft:diamond_chestplate defence:16", "minecraft:diamond_leggings defence:16", "minecraft:diamond_boots defence:16", "minecraft:netherite_sword attack:24",
             "minecraft:netherite_axe gathering:24", "minecraft:netherite_pickaxe mining:24", "minecraft:netherite_shovel mining:24", "minecraft:netherite_hoe farming:24", "minecraft:netherite_helmet defence:24",
             "minecraft:netherite_chestplate defence:24", "minecraft:netherite_leggings defence:24", "minecraft:netherite_boots defence:24", "minecraft:elytra defence:12 agility:24"), obj -> true);
-        
-        builder.comment("List of items or blocks that cannot be used.");
-        BLACKLIST = builder.defineList("blacklist", new ArrayList<>(), obj -> true);
         
         CONFIG_SPEC = builder.build();
     }
@@ -76,8 +70,6 @@ public class Configuration
             
             skillLocks.put(entry[0], requirements);
         }
-        
-        blacklist.addAll(BLACKLIST.get());
     }
     
     // Get Properties
