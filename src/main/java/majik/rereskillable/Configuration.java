@@ -65,7 +65,6 @@ public class Configuration
                 String[] req = entry[i].split(":");
                 
                 requirements[i - 1] = new Requirement(Skill.valueOf(req[0].toUpperCase()), Integer.parseInt(req[1]));
-                System.out.println(req[0].toUpperCase() + " " + req[1]);
             }
             
             skillLocks.put(entry[0], requirements);
