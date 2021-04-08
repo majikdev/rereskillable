@@ -93,8 +93,6 @@ public class Configuration
         return skillLocks.get(key.toString());
     }
     
-    // Get Configuration
-    
     public static ForgeConfigSpec getConfig()
     {
         return CONFIG_SPEC;

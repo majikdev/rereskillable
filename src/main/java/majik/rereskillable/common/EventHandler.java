@@ -21,12 +21,12 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-public class Events
+public class EventHandler
 {
-    // Player Left Click Block
+    // Left Click Block
     
     @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public void onPlayerLeftClickBlock(PlayerInteractEvent.LeftClickBlock event)
+    public void onLeftClickBlock(PlayerInteractEvent.LeftClickBlock event)
     {
         PlayerEntity player = event.getPlayer();
         ItemStack item = event.getItemStack();
@@ -39,10 +39,10 @@ public class Events
         }
     }
     
-    // Player Right Click Block
+    // Right Click Block
     
     @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public void onPlayerRightClickBlock(PlayerInteractEvent.RightClickBlock event)
+    public void onRightClickBlock(PlayerInteractEvent.RightClickBlock event)
     {
         PlayerEntity player = event.getPlayer();
         ItemStack item = event.getItemStack();
@@ -55,36 +55,38 @@ public class Events
         }
     }
     
-    // Player Right Click Item
+    // Right Click Item
     
     @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public void onPlayerRightClickItem(PlayerInteractEvent.RightClickItem event)
+    public void onRightClickItem(PlayerInteractEvent.RightClickItem event)
     {
         PlayerEntity player = event.getPlayer();
+        ItemStack item = event.getItemStack();
     
-        if (!player.isCreative() && !SkillModel.get(player).canUseItem(player, event.getItemStack()))
+        if (!player.isCreative() && !SkillModel.get(player).canUseItem(player, item))
         {
             event.setCanceled(true);
         }
     }
     
-    // Player Attack
+    // Attack Entity
     
     @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public void onPlayerAttack(AttackEntityEvent event)
+    public void onAttackEntity(AttackEntityEvent event)
     {
         PlayerEntity player = event.getPlayer();
+        ItemStack item = player.getMainHandItem();
         
-        if (!player.isCreative() && !SkillModel.get(player).canUseItem(player, player.getMainHandItem()))
+        if (!player.isCreative() && !SkillModel.get(player).canUseItem(player, item))
         {
             event.setCanceled(true);
         }
     }
     
-    // Player Equip
+    // Change Equipment
     
     @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public void onPlayerEquip(LivingEquipmentChangeEvent event)
+    public void onChangeEquipment(LivingEquipmentChangeEvent event)
     {
         if (event.getEntity() instanceof PlayerEntity)
         {
@@ -93,7 +95,7 @@ public class Events
             if (!player.isCreative() && event.getSlot().getType() == EquipmentSlotType.Group.ARMOR)
             {
                 ItemStack item = event.getTo();
-        
+                
                 if (!SkillModel.get(player).canUseItem(player, item))
                 {
                     if (!player.addItem(item))

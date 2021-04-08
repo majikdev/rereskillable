@@ -27,9 +27,7 @@ public class Tooltip
             
             for (Requirement requirement : requirements)
             {
-                int level = SkillModel.get().getSkillLevel(requirement.skill);
-                TextFormatting colour = level >= requirement.level ? TextFormatting.GREEN : TextFormatting.RED;
-        
+                TextFormatting colour = SkillModel.get().getSkillLevel(requirement.skill) >= requirement.level ? TextFormatting.GREEN : TextFormatting.RED;
                 tooltips.add(new TranslationTextComponent(requirement.skill.displayName).append(" " + requirement.level).withStyle(colour));
             }
         }

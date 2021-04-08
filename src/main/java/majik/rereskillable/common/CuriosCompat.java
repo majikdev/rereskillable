@@ -7,12 +7,12 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import top.theillusivec4.curios.api.event.CurioChangeEvent;
 
-public class Curios
+public class CuriosCompat
 {
-    // Player Equip Curio
+    // Change Curio
     
     @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public void onPlayerEquipCurio(CurioChangeEvent event)
+    public void onChangeCurio(CurioChangeEvent event)
     {
         if (event.getEntity() instanceof PlayerEntity)
         {

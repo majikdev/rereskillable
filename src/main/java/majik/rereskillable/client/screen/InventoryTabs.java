@@ -28,8 +28,6 @@ public class InventoryTabs
         }
     }
     
-    // Potion Shift
-    
     @SubscribeEvent
     public void onPotionShift(GuiScreenEvent.PotionShiftEvent event)
     {

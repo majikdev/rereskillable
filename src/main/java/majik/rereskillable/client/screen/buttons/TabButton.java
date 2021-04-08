@@ -10,7 +10,7 @@ import net.minecraft.util.text.StringTextComponent;
 public class TabButton extends AbstractButton
 {
     private final boolean selected;
-    public final TabType type;
+    private final TabType type;
     
     public TabButton(int x, int y, TabType type, boolean selected)
     {
@@ -49,8 +49,6 @@ public class TabButton extends AbstractButton
                 break;
         }
     }
-    
-    // Tab Type
     
     public enum TabType
     {
