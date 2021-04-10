@@ -6,6 +6,7 @@ import majik.rereskillable.common.skills.Requirement;
 import majik.rereskillable.common.skills.Skill;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -43,6 +44,13 @@ public class SkillModel implements INBTSerializable<CompoundNBT>
     public boolean canUseBlock(PlayerEntity player, Block block)
     {
         return canUse(player, block.getBlock().getRegistryName());
+    }
+    
+    // Can Player Use Entity
+    
+    public boolean canUseEntity(PlayerEntity player, Entity entity)
+    {
+        return canUse(player, entity.getType().getRegistryName());
     }
     
     // Can Player Use

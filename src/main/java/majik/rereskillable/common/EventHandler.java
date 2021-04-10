@@ -62,8 +62,22 @@ public class EventHandler
     {
         PlayerEntity player = event.getPlayer();
         ItemStack item = event.getItemStack();
-    
+        
         if (!player.isCreative() && !SkillModel.get(player).canUseItem(player, item))
+        {
+            event.setCanceled(true);
+        }
+    }
+    
+    // Right Click Entity
+    
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public void onRightClickEntity(PlayerInteractEvent.EntityInteract event)
+    {
+        PlayerEntity player = event.getPlayer();
+        Entity entity = event.getTarget();
+        
+        if (!player.isCreative() && !SkillModel.get(player).canUseEntity(player, entity))
         {
             event.setCanceled(true);
         }
