@@ -27,3 +27,7 @@ For example:
 "minecraft:bow attack:3 agility:2"
 "minecraft:horse agility:10"
 ```
+
+## Planned Features
+
+May add an item blacklist later, currently you can do that by setting it's requirement level above the max level.
