@@ -31,6 +31,6 @@ Rereskillable is a simpler rewrite of Reskillable.
 [[dependencies.rereskillable]]
     modId="curios"
     mandatory=false
-    versionRange="[4.0.1.0,)"
+    versionRange="[1.16.5-4.0.5.0,)"
     ordering="AFTER"
     side="BOTH"
