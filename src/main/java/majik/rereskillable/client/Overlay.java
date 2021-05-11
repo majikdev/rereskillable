@@ -25,7 +25,7 @@ public class Overlay extends AbstractGui
     @SubscribeEvent
     public void onRenderOverlay(RenderGameOverlayEvent.Post event)
     {
-        if (event.getType() == RenderGameOverlayEvent.ElementType.HOTBAR && showTicks > 0)
+        if (event.getType() == RenderGameOverlayEvent.ElementType.EXPERIENCE && showTicks > 0)
         {
             Minecraft minecraft = Minecraft.getInstance();
             MatrixStack stack = event.getMatrixStack();
