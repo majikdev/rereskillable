@@ -37,7 +37,7 @@ public class RequestLevelUp
             SkillModel skillModel = SkillModel.get(player);
             Skill skill = Skill.values()[this.skill];
             
-            int cost = Configuration.getStartCost() + skillModel.getSkillLevel(skill) - 1;
+            int cost = Configuration.getStartCost() + (skillModel.getSkillLevel(skill) - 1) * Configuration.getCostIncrease();
             
             if (skillModel.getSkillLevel(skill) < Configuration.getMaxLevel() && (player.isCreative() || player.experienceLevel >= cost))
             {

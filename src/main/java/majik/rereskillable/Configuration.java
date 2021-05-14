@@ -15,11 +15,13 @@ public class Configuration
     private static final ForgeConfigSpec CONFIG_SPEC;
     private static final ForgeConfigSpec.BooleanValue DISABLE_WOOL;
     private static final ForgeConfigSpec.IntValue STARTING_COST;
+    private static final ForgeConfigSpec.IntValue COST_INCREASE;
     private static final ForgeConfigSpec.IntValue MAXIMUM_LEVEL;
     private static final ForgeConfigSpec.ConfigValue<List<? extends String>> SKILL_LOCKS;
     
     private static boolean disableWool;
     private static int startingCost;
+    private static int costIncrease;
     private static int maximumLevel;
     private static final Map<String, Requirement[]> skillLocks = new HashMap<>();
     
@@ -31,7 +33,10 @@ public class Configuration
         DISABLE_WOOL = builder.define("disableWoolDrops", true);
         
         builder.comment("Starting cost of upgrading to level 2, in levels.");
-        STARTING_COST = builder.defineInRange("startingCost", 2, 1, 10);
+        STARTING_COST = builder.defineInRange("startingCost", 2, 0, 10);
+        
+        builder.comment("Amount of levels added to the cost with each upgrade (use 0 for constant cost).");
+        COST_INCREASE = builder.defineInRange("costIncrease", 1, 0, 10);
         
         builder.comment("Maximum level each skill can be upgraded to.");
         MAXIMUM_LEVEL = builder.defineInRange("maximumLevel", 32, 2, 100);
@@ -48,6 +53,7 @@ public class Configuration
     {
         disableWool = DISABLE_WOOL.get();
         startingCost = STARTING_COST.get();
+        costIncrease = COST_INCREASE.get();
         maximumLevel = MAXIMUM_LEVEL.get();
         
         for (String line : SKILL_LOCKS.get())
@@ -76,6 +82,11 @@ public class Configuration
     public static int getStartCost()
     {
         return startingCost;
+    }
+    
+    public static int getCostIncrease()
+    {
+        return costIncrease;
     }
     
     public static int getMaxLevel()
