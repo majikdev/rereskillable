@@ -11,7 +11,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '1.2.0'
+version = '1.2.1'
 group = 'majik.rereskillable'
 archivesBaseName = name + '-' + project.mcVersion
 
@@ -73,11 +73,7 @@ repositories {
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.16.5-36.1.2'
-    compile fg.deobf('curse.maven:curios-309927:3056865')
-
-    // Real examples
-    // compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
-    // compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
+    compile fg.deobf('curse.maven:curios-309927:3275653')
 }
 
 jar {
@@ -85,7 +81,7 @@ jar {
         attributes([
             "Specification-Title": project.name,
             "Specification-Vendor": project.author,
-            "Specification-Version": "1", // We are version 1 of ourselves
+            "Specification-Version": "1",
             "Implementation-Title": project.name,
             "Implementation-Version": project.version,
             "Implementation-Vendor" : project.author,
