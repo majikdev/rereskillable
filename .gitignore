@@ -20,7 +20,6 @@ build
 # other
 eclipse
 run
-curios-forge-1.16.5-4.0.4.0.jar
 .gitignore
 .gitattributes
 

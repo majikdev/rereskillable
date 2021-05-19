@@ -18,6 +18,7 @@ import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -76,10 +77,14 @@ public class EventHandler
     {
         PlayerEntity player = event.getPlayer();
         Entity entity = event.getTarget();
+        ItemStack item = event.getItemStack();
         
-        if (!player.isCreative() && !SkillModel.get(player).canUseEntity(player, entity))
+        if (!player.isCreative())
         {
-            event.setCanceled(true);
+            if (!SkillModel.get(player).canUseEntity(player, entity) || !SkillModel.get(player).canUseItem(player, item))
+            {
+                event.setCanceled(true);
+            }
         }
     }
     
