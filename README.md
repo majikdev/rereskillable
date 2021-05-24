@@ -27,3 +27,27 @@ For example:
 "minecraft:bow attack:3 agility:2"
 "minecraft:horse agility:10"
 ```
+
+## Commands
+
+To set a skill level:
+```
+/skills set [player] [skill] [level]
+```
+To get a skill level:
+```
+/skills get [player] [skill]
+```
+
+## Known Issues
+
+- You can't lock the Totem of Undying from being used.
+- You can block items from being used regardless of skill only by setting the requirement to a level above max skill level (example: "minecraft:shield magic:69")
+
+## Modpacks
+
+Feel free to use this mod in any modpacks, but please do add a credit to the modpack's page.
+
+## Credits
+
+Reskillable and Skillable
