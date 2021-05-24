@@ -27,6 +27,13 @@ public class SkillModel implements INBTSerializable<CompoundNBT>
     
     // Set Level for Skill
     
+    public void setSkillLevel(Skill skill, int level)
+    {
+        skillLevels[skill.index] = level;
+    }
+    
+    // Increase Level for Skill
+    
     public void increaseSkillLevel(Skill skill)
     {
         skillLevels[skill.index]++;

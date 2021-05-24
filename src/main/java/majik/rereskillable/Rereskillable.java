@@ -8,6 +8,7 @@ import majik.rereskillable.common.CuriosCompat;
 import majik.rereskillable.common.EventHandler;
 import majik.rereskillable.common.capabilities.SkillModel;
 import majik.rereskillable.common.capabilities.SkillStorage;
+import majik.rereskillable.common.commands.Commands;
 import majik.rereskillable.common.network.NotifyWarning;
 import majik.rereskillable.common.network.RequestLevelUp;
 import majik.rereskillable.common.network.SyncToClient;
@@ -36,6 +37,7 @@ public class Rereskillable
     {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
+        
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Configuration.getConfig());
     }
     
@@ -52,6 +54,7 @@ public class Rereskillable
         NETWORK.registerMessage(3, NotifyWarning.class, NotifyWarning::encode, NotifyWarning::new, NotifyWarning::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
     
         MinecraftForge.EVENT_BUS.register(new EventHandler());
+        MinecraftForge.EVENT_BUS.register(new Commands());
         
         // Curios Compatibility
     
