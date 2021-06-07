@@ -32,14 +32,22 @@ public class SkillButton extends AbstractButton
     
         int level = SkillModel.get().getSkillLevel(skill);
         int maxLevel = Configuration.getMaxLevel();
-        int u = Math.min(level, maxLevel - 1) / (maxLevel / 4) * 16 + 176;
+        
+        int u = ((int) Math.ceil((double) level * 4 / maxLevel) - 1) * 16 + 176;
         int v = skill.index * 16 + 128;
         
         blit(stack, x, y, 176, (level == maxLevel ? 64 : 0) + (isMouseOver(mouseX, mouseY) ? 32 : 0), width, height);
         blit(stack, x + 6, y + 8, u, v, 16, 16);
         
         minecraft.font.draw(stack, new TranslationTextComponent(skill.displayName), x + 25, y + 7, 0xFFFFFF);
-        minecraft.font.draw(stack, String.format("%d/%d", level, maxLevel), x + 25, y + 18, 0xBEBEBE);
+        minecraft.font.draw(stack, level + "/" + maxLevel, x + 25, y + 18, 0xBEBEBE);
+        
+        if (isMouseOver(mouseX, mouseY) && level < maxLevel)
+        {
+            String cost = Integer.toString(Configuration.getStartCost() + (level - 1) * Configuration.getCostIncrease());
+            
+            minecraft.font.drawShadow(stack, cost, x + 73 - minecraft.font.width(cost), y + 18, 0x7EFC20);
+        }
     }
     
     // Press
