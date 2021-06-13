@@ -44,9 +44,11 @@ public class SkillButton extends AbstractButton
         
         if (isMouseOver(mouseX, mouseY) && level < maxLevel)
         {
-            String cost = Integer.toString(Configuration.getStartCost() + (level - 1) * Configuration.getCostIncrease());
+            int cost = Configuration.getStartCost() + (level - 1) * Configuration.getCostIncrease();
+            int colour = minecraft.player.experienceLevel >= cost ? 0x7EFC20 : 0xFC5454;
+            String text = Integer.toString(cost);
             
-            minecraft.font.drawShadow(stack, cost, x + 73 - minecraft.font.width(cost), y + 18, 0x7EFC20);
+            minecraft.font.drawShadow(stack, text, x + 73 - minecraft.font.width(text), y + 18, colour);
         }
     }
     

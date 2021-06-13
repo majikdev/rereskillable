@@ -3,6 +3,7 @@ package majik.rereskillable.client;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import majik.rereskillable.Configuration;
 import majik.rereskillable.client.screen.SkillScreen;
+import majik.rereskillable.common.capabilities.SkillCapability;
 import majik.rereskillable.common.capabilities.SkillModel;
 import majik.rereskillable.common.skills.Requirement;
 import net.minecraft.client.Minecraft;
@@ -28,35 +29,39 @@ public class Overlay extends AbstractGui
         if (event.getType() == RenderGameOverlayEvent.ElementType.EXPERIENCE && showTicks > 0)
         {
             Minecraft minecraft = Minecraft.getInstance();
-            MatrixStack stack = event.getMatrixStack();
             
-            minecraft.textureManager.bind(SkillScreen.RESOURCES);
-            GL11.glEnable(GL11.GL_BLEND);
-            
-            int cx = event.getWindow().getGuiScaledWidth() / 2;
-            int cy = event.getWindow().getGuiScaledHeight() / 4;
-            
-            blit(stack, cx - 71, cy - 4, 0, 194, 142, 40);
-            
-            String message = new TranslationTextComponent("overlay.message").getString();
-            minecraft.font.drawShadow(stack, message, cx - minecraft.font.width(message) / 2, cy, 0xFF5555);
-            
-            for (int i = 0; i < requirements.size(); i++)
+            if (minecraft.player.getCapability(SkillCapability.INSTANCE).isPresent())
             {
-                Requirement requirement = requirements.get(i);
-                int maxLevel = Configuration.getMaxLevel();
-                
-                int x = cx + i * 20 - requirements.size() * 10 + 2;
-                int y = cy + 15;
-                int u = Math.min(requirement.level, maxLevel - 1) / (maxLevel / 4) * 16 + 176;
-                int v = requirement.skill.index * 16 + 128;
-                
+                MatrixStack stack = event.getMatrixStack();
+    
                 minecraft.textureManager.bind(SkillScreen.RESOURCES);
-                blit(stack, x, y, u, v, 16, 16);
-                
-                String level = Integer.toString(requirement.level);
-                boolean met = SkillModel.get().getSkillLevel(requirement.skill) >= requirement.level;
-                minecraft.font.drawShadow(stack, level, x + 17 - minecraft.font.width(level), y + 9, met ? 0x55FF55 : 0xFF5555);
+                GL11.glEnable(GL11.GL_BLEND);
+    
+                int cx = event.getWindow().getGuiScaledWidth() / 2;
+                int cy = event.getWindow().getGuiScaledHeight() / 4;
+    
+                blit(stack, cx - 71, cy - 4, 0, 194, 142, 40);
+    
+                String message = new TranslationTextComponent("overlay.message").getString();
+                minecraft.font.drawShadow(stack, message, cx - minecraft.font.width(message) / 2, cy, 0xFF5555);
+    
+                for (int i = 0; i < requirements.size(); i++)
+                {
+                    Requirement requirement = requirements.get(i);
+                    int maxLevel = Configuration.getMaxLevel();
+        
+                    int x = cx + i * 20 - requirements.size() * 10 + 2;
+                    int y = cy + 15;
+                    int u = Math.min(requirement.level, maxLevel - 1) / (maxLevel / 4) * 16 + 176;
+                    int v = requirement.skill.index * 16 + 128;
+        
+                    minecraft.textureManager.bind(SkillScreen.RESOURCES);
+                    blit(stack, x, y, u, v, 16, 16);
+        
+                    String level = Integer.toString(requirement.level);
+                    boolean met = SkillModel.get().getSkillLevel(requirement.skill) >= requirement.level;
+                    minecraft.font.drawShadow(stack, level, x + 17 - minecraft.font.width(level), y + 9, met ? 0x55FF55 : 0xFF5555);
+                }
             }
         }
     }
