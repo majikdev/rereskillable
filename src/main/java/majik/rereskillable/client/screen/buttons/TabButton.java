@@ -25,10 +25,16 @@ public class TabButton extends AbstractButton
     @Override
     public void render(MatrixStack stack, int mouseX, int mouseY, float partialTicks)
     {
-        Minecraft.getInstance().textureManager.bind(SkillScreen.RESOURCES);
+        Minecraft minecraft = Minecraft.getInstance();
+        active = !(minecraft.screen instanceof InventoryScreen) || !((InventoryScreen) minecraft.screen).getRecipeBookComponent().isVisible();
         
-        blit(stack, x, y, selected ? 31 : 0, 166, width, height);
-        blit(stack, x + (selected ? 8 : 10), y + 6, 240, 128 + type.iconIndex * 16, 16, 16);
+        if (active)
+        {
+            minecraft.textureManager.bind(SkillScreen.RESOURCES);
+    
+            blit(stack, x, y, selected ? 31 : 0, 166, width, height);
+            blit(stack, x + (selected ? 8 : 10), y + 6, 240, 128 + type.iconIndex * 16, 16, 16);
+        }
     }
     
     // Press
