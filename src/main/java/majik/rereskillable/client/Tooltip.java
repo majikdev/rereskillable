@@ -3,6 +3,7 @@ package majik.rereskillable.client;
 import majik.rereskillable.Configuration;
 import majik.rereskillable.common.capabilities.SkillModel;
 import majik.rereskillable.common.skills.Requirement;
+import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -17,18 +18,21 @@ public class Tooltip
     @SubscribeEvent
     public void onTooltipDisplay(ItemTooltipEvent event)
     {
-        Requirement[] requirements = Configuration.getRequirements(event.getItemStack().getItem().getRegistryName());
-        
-        if (requirements != null)
+        if (Minecraft.getInstance().player != null)
         {
-            List<ITextComponent> tooltips = event.getToolTip();
-            tooltips.add(StringTextComponent.EMPTY);
-            tooltips.add(new TranslationTextComponent("tooltip.requirements").append(":").withStyle(TextFormatting.GRAY));
-            
-            for (Requirement requirement : requirements)
+            Requirement[] requirements = Configuration.getRequirements(event.getItemStack().getItem().getRegistryName());
+    
+            if (requirements != null)
             {
-                TextFormatting colour = SkillModel.get().getSkillLevel(requirement.skill) >= requirement.level ? TextFormatting.GREEN : TextFormatting.RED;
-                tooltips.add(new TranslationTextComponent(requirement.skill.displayName).append(" " + requirement.level).withStyle(colour));
+                List<ITextComponent> tooltips = event.getToolTip();
+                tooltips.add(StringTextComponent.EMPTY);
+                tooltips.add(new TranslationTextComponent("tooltip.requirements").append(":").withStyle(TextFormatting.GRAY));
+        
+                for (Requirement requirement : requirements)
+                {
+                    TextFormatting colour = SkillModel.get().getSkillLevel(requirement.skill) >= requirement.level ? TextFormatting.GREEN : TextFormatting.RED;
+                    tooltips.add(new TranslationTextComponent(requirement.skill.displayName).append(" " + requirement.level).withStyle(colour));
+                }
             }
         }
     }

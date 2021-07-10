@@ -98,6 +98,8 @@ public class SkillModel implements INBTSerializable<CompoundNBT>
     
     public static SkillModel get()
     {
+        
+        
         return Minecraft.getInstance().player.getCapability(SkillCapability.INSTANCE).orElseThrow(() ->
             new IllegalArgumentException("Player does not have a Skill Model!")
         );
