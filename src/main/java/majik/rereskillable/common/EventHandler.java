@@ -4,6 +4,7 @@ import majik.rereskillable.Configuration;
 import majik.rereskillable.common.capabilities.SkillModel;
 import majik.rereskillable.common.capabilities.SkillProvider;
 import majik.rereskillable.common.network.SyncToClient;
+import majik.rereskillable.common.skills.Skill;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.SheepEntity;
@@ -13,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
@@ -131,6 +133,17 @@ public class EventHandler
         if (Configuration.getDisableWool() && event.getEntity() instanceof SheepEntity)
         {
             event.getDrops().removeIf(item -> ItemTags.getAllTags().getTag(new ResourceLocation("minecraft", "wool")).contains(item.getItem().getItem()));
+        }
+    }
+    
+    // Player Death
+    
+    @SubscribeEvent
+    public void onPlayerDeath(LivingDeathEvent event)
+    {
+        if (Configuration.getDeathReset() && event.getEntity() instanceof PlayerEntity)
+        {
+            SkillModel.get((PlayerEntity) event.getEntity()).skillLevels = new int[]{1, 1, 1, 1, 1, 1, 1, 1};
         }
     }
     

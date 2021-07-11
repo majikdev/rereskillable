@@ -14,12 +14,14 @@ public class Configuration
 {
     private static final ForgeConfigSpec CONFIG_SPEC;
     private static final ForgeConfigSpec.BooleanValue DISABLE_WOOL;
+    private static final ForgeConfigSpec.BooleanValue DEATH_RESET;
     private static final ForgeConfigSpec.IntValue STARTING_COST;
     private static final ForgeConfigSpec.IntValue COST_INCREASE;
     private static final ForgeConfigSpec.IntValue MAXIMUM_LEVEL;
     private static final ForgeConfigSpec.ConfigValue<List<? extends String>> SKILL_LOCKS;
     
     private static boolean disableWool;
+    private static boolean deathReset;
     private static int startingCost;
     private static int costIncrease;
     private static int maximumLevel;
@@ -31,6 +33,9 @@ public class Configuration
         
         builder.comment("Disable wool drops to force the player to get shears.");
         DISABLE_WOOL = builder.define("disableWoolDrops", true);
+    
+        builder.comment("Reset all skills to 1 when a player dies.");
+        DEATH_RESET = builder.define("deathSkillReset", false);
         
         builder.comment("Starting cost of upgrading to level 2, in levels.");
         STARTING_COST = builder.defineInRange("startingCost", 2, 0, 10);
@@ -52,6 +57,7 @@ public class Configuration
     public static void load()
     {
         disableWool = DISABLE_WOOL.get();
+        deathReset = DEATH_RESET.get();
         startingCost = STARTING_COST.get();
         costIncrease = COST_INCREASE.get();
         maximumLevel = MAXIMUM_LEVEL.get();
@@ -82,6 +88,11 @@ public class Configuration
     public static boolean getDisableWool()
     {
         return disableWool;
+    }
+    
+    public static boolean getDeathReset()
+    {
+        return deathReset;
     }
     
     public static int getStartCost()
