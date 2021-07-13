@@ -95,11 +95,15 @@ public class EventHandler
     public void onAttackEntity(AttackEntityEvent event)
     {
         PlayerEntity player = event.getPlayer();
-        ItemStack item = player.getMainHandItem();
         
-        if (!player.isCreative() && !SkillModel.get(player).canUseItem(player, item))
+        if (player != null)
         {
-            event.setCanceled(true);
+            ItemStack item = player.getMainHandItem();
+    
+            if (!player.isCreative() && !SkillModel.get(player).canUseItem(player, item))
+            {
+                event.setCanceled(true);
+            }
         }
     }
     
