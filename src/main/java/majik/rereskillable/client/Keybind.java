@@ -2,16 +2,16 @@ package majik.rereskillable.client;
 
 import majik.rereskillable.client.screen.SkillScreen;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.client.util.InputMappings;
+import net.minecraft.client.KeyMapping;
+import com.mojang.blaze3d.platform.InputConstants;
+import net.minecraftforge.client.ClientRegistry;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 
 public class Keybind
 {
-    private final KeyBinding openKey = new KeyBinding("key.skills", KeyConflictContext.IN_GAME, InputMappings.Type.KEYSYM, 71, "Rereskillable");
+    private final KeyMapping openKey = new KeyMapping("key.skills", KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, 71, "Rereskillable");
     
     public Keybind()
     {

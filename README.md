@@ -44,12 +44,6 @@ To get a skill level:
 - You can't lock the Totem of Undying from being used.
 - You can block items from being used regardless of skill only by setting the requirement to a level above max skill level (example: "minecraft:shield magic:69")
 
-## Support
-
-I stopped working on this mod and there will not be a Fabric port from me.
-
-But if anyone wants to fork this mod or port it to Fabric, feel free to do it, you can do anything with this code.
-
 ## Modpacks
 
 Feel free to use this mod in any modpacks, but please do add a credit to the modpack's page.

@@ -1,12 +1,13 @@
 package majik.rereskillable.client.screen;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import majik.rereskillable.client.screen.buttons.SkillButton;
 import majik.rereskillable.common.skills.Skill;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.TranslatableComponent;
 
 public class SkillScreen extends Screen
 {
@@ -14,7 +15,7 @@ public class SkillScreen extends Screen
     
     public SkillScreen()
     {
-        super(new TranslationTextComponent("container.skills"));
+        super(new TranslatableComponent("container.skills"));
     }
     
     // Init
@@ -30,16 +31,16 @@ public class SkillScreen extends Screen
             int x = left + i % 2 * 83;
             int y = top + i / 2 * 36;
             
-            addButton(new SkillButton(x, y, Skill.values()[i]));
+            addRenderableWidget(new SkillButton(x, y, Skill.values()[i]));
         }
     }
     
     // Render
     
     @Override
-    public void render(MatrixStack stack, int mouseX, int mouseY, float partialTicks)
+    public void render(PoseStack stack, int mouseX, int mouseY, float partialTicks)
     {
-        Minecraft.getInstance().textureManager.bind(RESOURCES);
+        RenderSystem.setShaderTexture(0, RESOURCES);
         
         int left = (width - 176) / 2;
         int top = (height - 166) / 2;
