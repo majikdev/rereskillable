@@ -50,7 +50,7 @@ public class SkillModel implements INBTSerializable<CompoundTag>
     
     public boolean canUseBlock(Player player, Block block)
     {
-        return canUse(player, block.getBlock().getRegistryName());
+        return canUse(player, block.getRegistryName());
     }
     
     // Can Player Use Entity

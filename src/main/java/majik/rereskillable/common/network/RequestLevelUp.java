@@ -6,7 +6,7 @@ import majik.rereskillable.common.capabilities.SkillModel;
 import majik.rereskillable.common.skills.Skill;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
