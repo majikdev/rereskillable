@@ -1,9 +1,9 @@
 package majik.rereskillable.client.screen;
 
 import majik.rereskillable.client.screen.buttons.TabButton;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.inventory.CreativeScreen;
-import net.minecraft.client.gui.screen.inventory.InventoryScreen;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -16,9 +16,9 @@ public class InventoryTabs
     {
         Screen screen = event.getGui();
         
-        if (screen instanceof InventoryScreen || screen instanceof CreativeScreen || screen instanceof SkillScreen)
+        if (screen instanceof InventoryScreen || screen instanceof CreativeModeInventoryScreen || screen instanceof SkillScreen)
         {
-            boolean creativeOpen = screen instanceof CreativeScreen;
+            boolean creativeOpen = screen instanceof CreativeModeInventoryScreen;
             boolean skillsOpen = screen instanceof SkillScreen;
             int x = (screen.width - (creativeOpen ? 195 : 176)) / 2 - 28;
             int y = (screen.height - (creativeOpen ? 136 : 166)) / 2;

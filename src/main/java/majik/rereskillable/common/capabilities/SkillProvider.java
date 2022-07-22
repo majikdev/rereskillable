@@ -1,7 +1,7 @@
 package majik.rereskillable.common.capabilities;
 
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
@@ -9,7 +9,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class SkillProvider implements ICapabilitySerializable<CompoundNBT>
+public class SkillProvider implements ICapabilitySerializable<CompoundTag>
 {
     private final SkillModel skillModel;
     private final LazyOptional<SkillModel> optional;
@@ -37,13 +37,13 @@ public class SkillProvider implements ICapabilitySerializable<CompoundNBT>
     }
     
     @Override
-    public CompoundNBT serializeNBT()
+    public CompoundTag serializeNBT()
     {
         return skillModel.serializeNBT();
     }
     
     @Override
-    public void deserializeNBT(CompoundNBT nbt)
+    public void deserializeNBT(CompoundTag nbt)
     {
         skillModel.deserializeNBT(nbt);
     }

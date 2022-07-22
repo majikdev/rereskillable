@@ -12,7 +12,7 @@ import majik.rereskillable.common.commands.Commands;
 import majik.rereskillable.common.network.NotifyWarning;
 import majik.rereskillable.common.network.RequestLevelUp;
 import majik.rereskillable.common.network.SyncToClient;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.ModList;

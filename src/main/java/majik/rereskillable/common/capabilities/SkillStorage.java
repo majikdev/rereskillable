@@ -1,8 +1,8 @@
 package majik.rereskillable.common.capabilities;
 
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
-import net.minecraft.util.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.core.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 
 import javax.annotation.Nullable;
@@ -11,14 +11,14 @@ public class SkillStorage implements Capability.IStorage<SkillModel>
 {
     @Nullable
     @Override
-    public INBT writeNBT(Capability<SkillModel> capability, SkillModel instance, Direction side)
+    public Tag writeNBT(Capability<SkillModel> capability, SkillModel instance, Direction side)
     {
         return instance.serializeNBT();
     }
     
     @Override
-    public void readNBT(Capability<SkillModel> capability, SkillModel instance, Direction side, INBT nbt)
+    public void readNBT(Capability<SkillModel> capability, SkillModel instance, Direction side, Tag nbt)
     {
-        instance.deserializeNBT((CompoundNBT) nbt);
+        instance.deserializeNBT((CompoundTag) nbt);
     }
 }

@@ -2,10 +2,10 @@ package majik.rereskillable.common.network;
 
 import majik.rereskillable.Rereskillable;
 import majik.rereskillable.common.capabilities.SkillModel;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.fml.network.PacketDistributor;
 
@@ -13,19 +13,19 @@ import java.util.function.Supplier;
 
 public class SyncToClient
 {
-    private final CompoundNBT skillModel;
+    private final CompoundTag skillModel;
     
-    public SyncToClient(CompoundNBT skillModel)
+    public SyncToClient(CompoundTag skillModel)
     {
         this.skillModel = skillModel;
     }
     
-    public SyncToClient(PacketBuffer buffer)
+    public SyncToClient(FriendlyByteBuf buffer)
     {
         skillModel = buffer.readNbt();
     }
     
-    public void encode(PacketBuffer buffer)
+    public void encode(FriendlyByteBuf buffer)
     {
         buffer.writeNbt(skillModel);
     }
@@ -38,8 +38,8 @@ public class SyncToClient
     
     // Send Packet
     
-    public static void send(PlayerEntity player)
+    public static void send(Player player)
     {
-        Rereskillable.NETWORK.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) player), new SyncToClient(SkillModel.get(player).serializeNBT()));
+        Rereskillable.NETWORK.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) player), new SyncToClient(SkillModel.get(player).serializeNBT()));
     }
 }

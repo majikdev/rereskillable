@@ -1,15 +1,15 @@
 package majik.rereskillable.client;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import majik.rereskillable.Configuration;
 import majik.rereskillable.client.screen.SkillScreen;
 import majik.rereskillable.common.capabilities.SkillCapability;
 import majik.rereskillable.common.capabilities.SkillModel;
 import majik.rereskillable.common.skills.Requirement;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.AbstractGui;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -18,7 +18,7 @@ import org.lwjgl.opengl.GL11;
 import java.util.Arrays;
 import java.util.List;
 
-public class Overlay extends AbstractGui
+public class Overlay extends GuiComponent
 {
     private static List<Requirement> requirements = null;
     private static int showTicks = 0;
@@ -32,7 +32,7 @@ public class Overlay extends AbstractGui
             
             if (minecraft.player.getCapability(SkillCapability.INSTANCE).isPresent())
             {
-                MatrixStack stack = event.getMatrixStack();
+                PoseStack stack = event.getMatrixStack();
     
                 minecraft.textureManager.bind(SkillScreen.RESOURCES);
                 GL11.glEnable(GL11.GL_BLEND);
@@ -42,7 +42,7 @@ public class Overlay extends AbstractGui
     
                 blit(stack, cx - 71, cy - 4, 0, 194, 142, 40);
     
-                String message = new TranslationTextComponent("overlay.message").getString();
+                String message = new TranslatableComponent("overlay.message").getString();
                 minecraft.font.drawShadow(stack, message, cx - minecraft.font.width(message) / 2, cy, 0xFF5555);
     
                 for (int i = 0; i < requirements.size(); i++)

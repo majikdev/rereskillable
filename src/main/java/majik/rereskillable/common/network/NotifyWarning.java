@@ -2,10 +2,10 @@ package majik.rereskillable.common.network;
 
 import majik.rereskillable.Rereskillable;
 import majik.rereskillable.client.Overlay;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.fml.network.PacketDistributor;
 
@@ -20,12 +20,12 @@ public class NotifyWarning
         this.resource = resource;
     }
     
-    public NotifyWarning(PacketBuffer buffer)
+    public NotifyWarning(FriendlyByteBuf buffer)
     {
         resource = buffer.readResourceLocation();
     }
     
-    public void encode(PacketBuffer buffer)
+    public void encode(FriendlyByteBuf buffer)
     {
         buffer.writeResourceLocation(resource);
     }
@@ -38,8 +38,8 @@ public class NotifyWarning
     
     // Send Packet
     
-    public static void send(PlayerEntity player, ResourceLocation resource)
+    public static void send(Player player, ResourceLocation resource)
     {
-        Rereskillable.NETWORK.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) player), new NotifyWarning(resource));
+        Rereskillable.NETWORK.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) player), new NotifyWarning(resource));
     }
 }
