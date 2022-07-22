@@ -13,7 +13,7 @@ public class SkillProvider implements ICapabilitySerializable<CompoundTag>
 {
     private final SkillModel skillModel;
     private final LazyOptional<SkillModel> optional;
-    
+
     public SkillProvider(SkillModel skillModel)
     {
         this.skillModel = skillModel;

@@ -134,9 +134,8 @@ public class EventHandler
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onEntityDrops(LivingDropsEvent event)
     {
-        if (Configuration.getDisableWool() && event.getEntity() instanceof Sheep)
-        {
-            event.getDrops().removeIf(item -> ItemTags.getAllTags().getTag(new ResourceLocation("minecraft", "wool")).contains(item.getItem().getItem()));
+        if (Configuration.getDisableWool() && event.getEntity() instanceof Sheep) {
+            event.getDrops().removeIf(item -> item.getItem().is(ItemTags.WOOL));
         }
     }
     

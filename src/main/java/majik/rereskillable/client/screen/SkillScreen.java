@@ -1,5 +1,6 @@
 package majik.rereskillable.client.screen;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import majik.rereskillable.client.screen.buttons.SkillButton;
 import majik.rereskillable.common.skills.Skill;
@@ -30,7 +31,7 @@ public class SkillScreen extends Screen
             int x = left + i % 2 * 83;
             int y = top + i / 2 * 36;
             
-            addButton(new SkillButton(x, y, Skill.values()[i]));
+            addRenderableWidget(new SkillButton(x, y, Skill.values()[i]));
         }
     }
     
@@ -39,7 +40,7 @@ public class SkillScreen extends Screen
     @Override
     public void render(PoseStack stack, int mouseX, int mouseY, float partialTicks)
     {
-        Minecraft.getInstance().textureManager.bind(RESOURCES);
+        RenderSystem.setShaderTexture(0, RESOURCES);
         
         int left = (width - 176) / 2;
         int top = (height - 166) / 2;

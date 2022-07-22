@@ -2,19 +2,18 @@ package majik.rereskillable;
 
 import majik.rereskillable.client.Keybind;
 import majik.rereskillable.client.Overlay;
-import majik.rereskillable.client.screen.InventoryTabs;
 import majik.rereskillable.client.Tooltip;
+import majik.rereskillable.client.screen.InventoryTabs;
 import majik.rereskillable.common.CuriosCompat;
 import majik.rereskillable.common.EventHandler;
 import majik.rereskillable.common.capabilities.SkillModel;
-import majik.rereskillable.common.capabilities.SkillStorage;
 import majik.rereskillable.common.commands.Commands;
 import majik.rereskillable.common.network.NotifyWarning;
 import majik.rereskillable.common.network.RequestLevelUp;
 import majik.rereskillable.common.network.SyncToClient;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -37,6 +36,7 @@ public class Rereskillable
     {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::initCaps);
         
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Configuration.getConfig());
     }
@@ -45,7 +45,6 @@ public class Rereskillable
     
     private void commonSetup(final FMLCommonSetupEvent event)
     {
-        CapabilityManager.INSTANCE.register(SkillModel.class, new SkillStorage(), () -> { throw new UnsupportedOperationException("No Implementation!"); });
         Configuration.load();
         
         NETWORK = NetworkRegistry.newSimpleChannel(new ResourceLocation("rereskillable", "main_channel"), () -> "1.0", s -> true, s -> true);
@@ -63,7 +62,11 @@ public class Rereskillable
             MinecraftForge.EVENT_BUS.register(new CuriosCompat());
         }
     }
-    
+
+    public void initCaps(RegisterCapabilitiesEvent event) {
+        event.register(SkillModel.class);
+    }
+
     // Client Setup
     
     private void clientSetup(final FMLClientSetupEvent event)

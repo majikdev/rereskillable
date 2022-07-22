@@ -1,8 +1,10 @@
 package majik.rereskillable.client.screen.buttons;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import majik.rereskillable.client.screen.SkillScreen;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.network.chat.TextComponent;
@@ -30,7 +32,7 @@ public class TabButton extends AbstractButton
         
         if (active)
         {
-            minecraft.textureManager.bind(SkillScreen.RESOURCES);
+            RenderSystem.setShaderTexture(0, SkillScreen.RESOURCES);
     
             blit(stack, x, y, selected ? 31 : 0, 166, width, height);
             blit(stack, x + (selected ? 8 : 10), y + 6, 240, 128 + type.iconIndex * 16, 16, 16);
@@ -55,7 +57,12 @@ public class TabButton extends AbstractButton
                 break;
         }
     }
-    
+
+    @Override
+    public void updateNarration(NarrationElementOutput p_169152_) {
+
+    }
+
     public enum TabType
     {
         INVENTORY (0),
