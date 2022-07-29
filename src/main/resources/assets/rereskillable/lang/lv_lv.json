@@ -8,7 +8,7 @@
   "skill.agility": "Veiklība",
   "skill.magic": "Maģija",
   "container.skills": "Prasmes",
-  "overlay.message": "To vēl nevarat izmantot!",
+  "overlay.message.use": "To vēl nevarat izmantot!",
   "tooltip.requirements": "Prasības",
   "key.skills": "Atvērt Prasmes"
 }

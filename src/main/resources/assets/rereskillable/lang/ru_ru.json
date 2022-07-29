@@ -8,7 +8,7 @@
   "skill.agility": "Ловкость",
   "skill.magic": "Магия",
   "container.skills": "Навыки",
-  "overlay.message": "Предмет недоступен!",
+  "overlay.message.use": "Предмет недоступен!",
   "tooltip.requirements": "Требования",
   "key.skills": "Открыть Навыки"
 }

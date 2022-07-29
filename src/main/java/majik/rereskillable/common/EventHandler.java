@@ -104,6 +104,11 @@ public class EventHandler
             {
                 event.setCanceled(true);
             }
+
+            if (!player.isCreative() && !SkillModel.get(player).canAttackEntity(player, event.getTarget()))
+            {
+                event.setCanceled(true);
+            }
         }
     }
     

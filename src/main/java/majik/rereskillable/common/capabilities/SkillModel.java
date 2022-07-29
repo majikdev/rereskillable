@@ -3,6 +3,7 @@ package majik.rereskillable.common.capabilities;
 import majik.rereskillable.Configuration;
 import majik.rereskillable.common.network.NotifyWarning;
 import majik.rereskillable.common.skills.Requirement;
+import majik.rereskillable.common.skills.RequirementType;
 import majik.rereskillable.common.skills.Skill;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.client.Minecraft;
@@ -64,8 +65,11 @@ public class SkillModel implements INBTSerializable<CompoundTag>
     
     private boolean canUse(Player player, ResourceLocation resource)
     {
-        Requirement[] requirements = Configuration.getRequirements(resource);
-        
+        return checkRequirements(player, resource, RequirementType.USE);
+    }
+
+    private boolean checkRequirements(Player player, ResourceLocation resource, RequirementType type) {
+        Requirement[] requirements = type.getRequirements(resource);
         if (requirements != null)
         {
             for (Requirement requirement : requirements)
@@ -74,17 +78,17 @@ public class SkillModel implements INBTSerializable<CompoundTag>
                 {
                     if (player instanceof ServerPlayer)
                     {
-                        NotifyWarning.send(player, resource);
+                        NotifyWarning.send(player, resource, type);
                     }
-                
+
                     return false;
                 }
             }
         }
-    
+
         return true;
     }
-    
+
     // Get Player Skills
     
     public static SkillModel get(Player player)
@@ -132,5 +136,16 @@ public class SkillModel implements INBTSerializable<CompoundTag>
         skillLevels[5] = nbt.getInt("farming");
         skillLevels[6] = nbt.getInt("agility");
         skillLevels[7] = nbt.getInt("magic");
+    }
+
+    public boolean canCraftItem(Player player, ItemStack stack) {
+        ResourceLocation resource = stack.getItem().getRegistryName();
+        Requirement[] requirements = Configuration.getCraftRequirements(resource);
+        return checkRequirements(player, resource, RequirementType.CRAFT);
+    }
+
+    public boolean canAttackEntity(Player player, Entity target) {
+        ResourceLocation resource = target.getType().getRegistryName();
+        return checkRequirements(player, resource, RequirementType.ATTACK);
     }
 }

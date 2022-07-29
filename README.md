@@ -1,6 +1,6 @@
 # Rereskillable
 
-Rereskillable is a mod for Minecraft 1.16.5 that adds upgradeable skills and allows pack developers to lock different features behind those skills. Rereskillable is also compatible with Curios API - items that are put into curios slots will behave the same as armour. Heavily inspired by Reskillable and Skillable.
+Rereskillable is a mod for Minecraft 1.18.2 that adds upgradeable skills and allows pack developers to lock different features behind those skills. Rereskillable is also compatible with Curios API - items that are put into curios slots will behave the same as armour. Heavily inspired by Reskillable and Skillable.
 
 This mod allows you to lock:
 - Items (using, wearing)
@@ -27,6 +27,10 @@ For example:
 "minecraft:bow attack:3 agility:2"
 "minecraft:horse agility:10"
 ```
+
+The craftSkillLocks list is in the same format but restricts which items you can craft.  
+
+The attackSkillLocks list is in the same format but restricts which entity types you can damage. 
 
 ## Commands
 
