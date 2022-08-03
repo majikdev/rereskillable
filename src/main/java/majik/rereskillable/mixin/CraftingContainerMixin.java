@@ -22,7 +22,6 @@ import java.util.Optional;
 public class CraftingContainerMixin {
     @Inject(at=@At("HEAD"), method = "slotChangedCraftingGrid", cancellable = true)
     private static void onUpdateCraftingGrid(AbstractContainerMenu p_150547_, Level p_150548_, Player p_150549_, CraftingContainer p_150550_, ResultContainer p_150551_, CallbackInfo ci){
-        System.out.println("slotChangedCraftingGrid");
         if (!p_150548_.isClientSide) {
             ServerPlayer serverplayer = (ServerPlayer)p_150549_;
             ItemStack craftResult = ItemStack.EMPTY;
@@ -37,7 +36,6 @@ public class CraftingContainerMixin {
             if (!craftResult.isEmpty() && !SkillModel.get(serverplayer).canCraftItem(serverplayer, craftResult)){
                 ci.cancel();
                 p_150551_.setItem(0, ItemStack.EMPTY);
-                System.out.println("blocked");
             }
         }
     }
