@@ -140,7 +140,6 @@ public class SkillModel implements INBTSerializable<CompoundTag>
 
     public boolean canCraftItem(Player player, ItemStack stack) {
         ResourceLocation resource = stack.getItem().getRegistryName();
-        Requirement[] requirements = Configuration.getCraftRequirements(resource);
         return checkRequirements(player, resource, RequirementType.CRAFT);
     }
 

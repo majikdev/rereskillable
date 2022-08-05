@@ -7,6 +7,8 @@ This mod allows you to lock:
 - Blocks (breaking, placing)
 - Entities (mounting)
 
+Separate lists for locking crafting certain items and attacking certain entities are available.
+
 ## Configuration
 
 Config options include:
@@ -30,7 +32,9 @@ For example:
 
 The craftSkillLocks list is in the same format but restricts which items you can craft.  
 
-The attackSkillLocks list is in the same format but restricts which entity types you can damage. 
+The attackSkillLocks list is in the same format but restricts which entity types you can damage.  
+
+Remember that the config file is only parsed when you fully restart the game. Client and server must have the same config file, just distribute it as part of your mod pack's default files. 
 
 ## Commands
 
@@ -42,6 +46,15 @@ To get a skill level:
 ```
 /skills get [player] [skill]
 ```
+
+## Changing Skill Names
+
+You can use a resource pack to change how the skills appear in game. 
+Their names are controlled by the [lang file](src/main/resources/assets/rereskillable/lang) and the icons 
+are on the [skills.png texture](src/main/resources/assets/rereskillable/textures/gui/skills.png) (each skill has 4 icons used as you level up, they're all 16x16).  
+
+You can use the `skillAliases` list in the config to replace the skill names used to write your configuration to match the displayed ones so it's easier to think about. 
+Format: key=value. Valid values: attack, defence, mining, gathering, farming, building, agility, magic
 
 ## Known Issues
 
