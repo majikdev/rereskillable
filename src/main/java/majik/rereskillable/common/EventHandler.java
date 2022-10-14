@@ -170,7 +170,6 @@ public class EventHandler
             SkillProvider provider = new SkillProvider(skillModel);
             
             event.addCapability(new ResourceLocation("rereskillable", "cap_skills"), provider);
-            event.addListener(provider::invalidate);
         }
     }
 
@@ -197,6 +196,7 @@ public class EventHandler
     @SubscribeEvent
     public void onChangeDimension(PlayerEvent.PlayerChangedDimensionEvent e)
     {
+        if (e.getPlayer().level.isClientSide()) return;
         SyncToClient.send(e.getPlayer());
     }
 }
