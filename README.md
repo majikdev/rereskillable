@@ -57,3 +57,5 @@ Feel free to use this mod in any modpacks, but please do add a credit to the mod
 ## Credits
 
 Reskillable and Skillable
+
+**NOTE: THIS REPOSITORY IS ARCHIVED AND WILL NOT BE UPDATED!**
